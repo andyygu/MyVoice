@@ -1,8 +1,8 @@
 import pandas as pd
 import csv
 from sentiment_analysis import SAClassifier
-# import scipy
-# from scipy.stats import chi2_contingency
+import scipy
+from scipy.stats import chi2_contingency
 
 def is_worried(response, classifier):
     if classifier.is_worried(response) != "Worried":
@@ -107,16 +107,16 @@ def main():
     print("Mixed: ", mixed_not_worried, " ", mixed_worried)
 
     #defining the table   
-    # data = [[ai_not_worried,asian_not_worried,black_not_worried,hawaiian_not_worried,white_not_worried,other_not_worried,mixed_not_worried],[ai_worried,asian_worried,black_worried,hawaiian_worried,white_worried,other_worried,mixed_worried]]
-    # stats,p,dof,expected = chi2_contingency(data)
+    data = [[ai_not_worried,asian_not_worried,black_not_worried,hawaiian_not_worried,white_not_worried,other_not_worried,mixed_not_worried],[ai_worried,asian_worried,black_worried,hawaiian_worried,white_worried,other_worried,mixed_worried]]
+    stats,p,dof,expected = chi2_contingency(data)
 
-    # #interpret p-value
-    # alpha = 0.10
-    # print("p value is: " + str(p))
-    # if p <= alpha: 
-    #     print('Dependent (reject H0)')
-    # else: 
-    #     print('Independent (H0 holds true)')
+    #interpret p-value
+    alpha = 0.10
+    print("p value is: " + str(p))
+    if p <= alpha: 
+        print('Dependent (reject H0)')
+    else: 
+        print('Independent (H0 holds true)')
 
 
 if __name__ == "__main__":
