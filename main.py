@@ -4,14 +4,14 @@ from sentiment_analysis import SAClassifier
 # import scipy
 # from scipy.stats import chi2_contingency
 
-def is_worried(response):
-    if response.find('Yes') != -1:
+def is_worried(response, classifier):
+    if classifier.is_worried(response) != "Worried":
         return True
     # if response.find('Yea') != -1:
     #     return True
     # if response.find('not worried') != -1:
     #     return False
-    if response.find('No') != -1:
+    else:
         return False
 
 def main():
@@ -19,6 +19,10 @@ def main():
     classifier = SAClassifier("not_worried.csv", "worried.csv")
 
     classifier.make_model()
+    response = "No, I am not worried"
+    classifier.is_worried(response)
+    response2 = "Yes, I am worried"
+    classifier.is_worried(response2)
 
     covid1 = pd.read_csv('covid1.csv.csv')
     covid1["Is worried"] = ''
@@ -34,7 +38,7 @@ def main():
         if type(row[prompt]) == float:
             row["Is worried"] = False
         else:
-            if is_worried(row[prompt]):
+            if is_worried(row[prompt], classifier):
                 row["Is worried"] = True
             else:
                 row["Is worried"] = False
