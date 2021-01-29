@@ -6,10 +6,14 @@ from scipy.stats import chi2_contingency
 def is_worried(response):
     if response.find('Yes') != -1:
         return True
+    # if response.find('Yea') != -1:
+    #     return True
+    # if response.find('not worried') != -1:
+    #     return False
     if response.find('No') != -1:
         return False
 
-covid1 = pd.read_csv('data/COVID1.csv')
+covid1 = pd.read_csv('covid1.csv.csv')
 covid1["Is worried"] = ''
 
 prompt = "Are you worried about coronavirus? Why or why not?"
@@ -96,9 +100,9 @@ data = [[ai_not_worried,asian_not_worried,black_not_worried,hawaiian_not_worried
 stats,p,dof,expected = chi2_contingency(data)
 
 #interpret p-value
-alpha = 0.05
-print("p value is" + str(p))
+alpha = 0.10
+print("p value is: " + str(p))
 if p <= alpha: 
-    print('Dependent(reject H0)')
+    print('Dependent (reject H0)')
 else: 
-    print('Independent(H0 holds true)')
+    print('Independent (H0 holds true)')
